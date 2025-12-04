@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Archivo: res/values/themes.xml -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Practica3" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!--
+          Aquí puedes personalizar tu tema, pero lo importante es el "parent".
+          'Theme.MaterialComponents.DayNight.DarkActionBar' es una excelente opción
+          ya que es un descendiente de AppCompat y soporta temas de día/noche.
+        -->
+
+        <!-- Opciones alternativas para el parent: -->
+        <!-- parent="Theme.AppCompat.Light.DarkActionBar" -->
+        <!-- parent="Theme.Material3.DayNight.NoActionBar" (si usas Material 3) -->
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="android:textColorPrimaryInverse">@color/purple_700</item>
+        <item name="ColorOn">@color/white</item>
+        <!-- ... otros items ... -->
+    </style>
+</resources>
