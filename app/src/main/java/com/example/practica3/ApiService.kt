@@ -18,6 +18,10 @@ interface ApiService {
     // Eliminar un producto por su ID
     @DELETE("/api/products/{id}")
     fun deleteProduct(
-        @Path("id") id: Long
+        @Path("id") id: Int
     ): Call<Void>
+
+    // Create a new order
+    @POST("/api/orders")
+    fun createOrder(@Body order: Order): Call<Order>
 }

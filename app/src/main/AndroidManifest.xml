@@ -31,6 +31,14 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".CartActivity"
+            android:label="Shopping Cart">
+        </activity>
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="Checkout">
+        </activity>
     </application>
 
 

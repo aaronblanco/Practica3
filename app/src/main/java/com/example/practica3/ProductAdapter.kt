@@ -1,20 +1,24 @@
 package com.example.practica3
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class ProductAdapter(private val productList: List<Product>) :
+class ProductAdapter(private val productList: List<Product>, private val context: Context) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageViewProduct: ImageView = itemView.findViewById(R.id.imageViewProduct) // Añadido
+        val imageViewProduct: ImageView = itemView.findViewById(R.id.imageViewProduct)
         val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         val textViewPrice: TextView = itemView.findViewById(R.id.textViewPrice)
+        val addToCartButton: Button = itemView.findViewById(R.id.buttonAddToCart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -24,13 +28,17 @@ class ProductAdapter(private val productList: List<Product>) :
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList[position]
-        holder.textViewName.text = product.name
+        holder.textViewName.text = product.title
         holder.textViewPrice.text = "$${product.price}"
 
-        // Cargar imagen con Glide
         Glide.with(holder.itemView.context)
             .load(product.image)
             .into(holder.imageViewProduct)
+
+        holder.addToCartButton.setOnClickListener {
+            ShoppingCart.addItem(product)
+            Toast.makeText(context, "${product.title} added to cart", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {

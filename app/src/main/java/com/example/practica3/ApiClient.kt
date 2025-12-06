@@ -8,9 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-  // private const val BASE_URL = "http://localhost:8080/"
-   private const val BASE_URL = "http://192.168.1.138:8080/"
-   // private const val BASE_URL = "http://10.0.2.2:8080/"
+   private const val BASE_URL = "http://10.0.2.2:8080/"
+
     // Cookie storage
     private val cookieStore = HashMap<String, List<Cookie>>()
 
@@ -23,18 +22,19 @@ object ApiClient {
             return cookieStore[url.host] ?: listOf()
         }
     }
-//////////////
+
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
     private val client = OkHttpClient.Builder()
-        .cookieJar(cookieJar)           // <-- ADD THIS LINE
+        .cookieJar(cookieJar)
         .addInterceptor(loggingInterceptor)
         .build()
+
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(client)                  // IMPORTANT!!
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }

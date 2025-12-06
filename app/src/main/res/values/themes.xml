@@ -3,7 +3,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Practica3" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Practica3" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!--
           Aquí puedes personalizar tu tema, pero lo importante es el "parent".
           'Theme.MaterialComponents.DayNight.DarkActionBar' es una excelente opción
@@ -17,7 +17,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="android:textColorPrimaryInverse">@color/purple_700</item>
-        <item name="ColorOn">@color/white</item>
+
         <!-- ... otros items ... -->
     </style>
 </resources>
