@@ -16,7 +16,7 @@
         android:id="@+id/buttonConfirmPurchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm Purchase"
+        android:text="Confirmar Compra"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
 

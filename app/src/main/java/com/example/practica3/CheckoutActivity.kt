@@ -1,5 +1,6 @@
 package com.example.practica3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -38,22 +39,42 @@ class CheckoutActivity : AppCompatActivity() {
                 apiService.createOrder(order).enqueue(object : Callback<Order> {
                     override fun onResponse(call: Call<Order>, response: Response<Order>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(this@CheckoutActivity, "Purchase confirmed!", Toast.LENGTH_LONG).show()
-                            ShoppingCart.clearCart()
-                            finish()
+                            // Order created, now checkout the cart on the server
+                            apiService.checkoutCart().enqueue(object : Callback<Void> {
+                                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                    if (response.isSuccessful) {
+                                        Toast.makeText(this@CheckoutActivity, "¡Compra confirmada!", Toast.LENGTH_LONG).show()
+                                        val purchasedProductIds = ShoppingCart.getProductIds()
+                                        ShoppingCart.clearCart()
+                                        val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
+                                        intent.putIntegerArrayListExtra("purchasedProductIds", ArrayList(purchasedProductIds))
+                                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this@CheckoutActivity, "Error al vaciar el carrito en el servidor. Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                                        Log.e("CHECKOUT_ERROR", "API Error (checkoutCart): ${response.code()}")
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Toast.makeText(this@CheckoutActivity, "Error de conexión al vaciar el carrito.", Toast.LENGTH_LONG).show()
+                                    Log.e("CHECKOUT_FAILURE", "API Failure (checkoutCart): ${t.message}")
+                                }
+                            })
                         } else {
-                            Toast.makeText(this@CheckoutActivity, "Failed to create order. Error: ${response.code()}", Toast.LENGTH_LONG).show()
-                            Log.e("CHECKOUT_ERROR", "API Error: ${response.code()}")
+                            Toast.makeText(this@CheckoutActivity, "Error al crear el pedido. Error: ${response.code()}", Toast.LENGTH_LONG).show()
+                            Log.e("CHECKOUT_ERROR", "API Error (createOrder): ${response.code()}")
                         }
                     }
 
                     override fun onFailure(call: Call<Order>, t: Throwable) {
-                        Toast.makeText(this@CheckoutActivity, "Failed to connect to the server.", Toast.LENGTH_LONG).show()
-                        Log.e("CHECKOUT_FAILURE", "API Failure: ${t.message}")
+                        Toast.makeText(this@CheckoutActivity, "Error de conexión al crear el pedido.", Toast.LENGTH_LONG).show()
+                        Log.e("CHECKOUT_FAILURE", "API Failure (createOrder): ${t.message}")
                     }
                 })
             } else {
-                Toast.makeText(this, "Your cart is empty.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "El carrito está vacío.", Toast.LENGTH_SHORT).show()
             }
         }
     }

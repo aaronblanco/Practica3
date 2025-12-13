@@ -7,8 +7,16 @@ object ShoppingCart {
         return cart
     }
 
-    fun addItem(product: Product) {
+    fun addItem(product: Product): Boolean {
+        if (cart.any { it.id == product.id }) {
+            return false
+        }
         cart.add(product)
+        return true
+    }
+
+    fun getProductIds(): List<Int> {
+        return cart.mapNotNull { it.id }
     }
 
     fun removeItem(product: Product) {

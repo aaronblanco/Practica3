@@ -3,6 +3,7 @@ package com.example.practica3
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +25,12 @@ class CartActivity : AppCompatActivity() {
 
         val checkoutButton: Button = findViewById(R.id.buttonCheckout)
         checkoutButton.setOnClickListener {
-            val intent = Intent(this, CheckoutActivity::class.java)
-            startActivity(intent)
+            if (ShoppingCart.getCart().isEmpty()) {
+                Toast.makeText(this, "El carrito está vacío, añade algún producto", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, CheckoutActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

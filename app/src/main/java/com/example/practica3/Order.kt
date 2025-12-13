@@ -1,5 +1,7 @@
 package com.example.practica3
 
+import com.google.gson.annotations.SerializedName
+
 data class Order(
-    val products: List<Product>
+    @SerializedName("products") val products: List<Product>
 )

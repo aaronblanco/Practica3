@@ -16,7 +16,7 @@
         android:id="@+id/buttonAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Product"
+        android:text="Añadir Producto"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/buttonGoToCart"
         android:layout_marginBottom="16dp" />
@@ -25,7 +25,7 @@
         android:id="@+id/buttonGoToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Cart"
+        android:text="Ir al Carrito"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp" />

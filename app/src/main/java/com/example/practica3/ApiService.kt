@@ -24,4 +24,8 @@ interface ApiService {
     // Create a new order
     @POST("/api/orders")
     fun createOrder(@Body order: Order): Call<Order>
+
+    // Checkout cart
+    @POST("/cart/api/checkout")
+    fun checkoutCart(): Call<Void>
 }

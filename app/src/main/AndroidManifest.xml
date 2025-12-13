@@ -33,11 +33,15 @@
         </activity>
         <activity
             android:name=".CartActivity"
-            android:label="Shopping Cart">
+            android:label="Carrito de Compras">
         </activity>
         <activity
             android:name=".CheckoutActivity"
-            android:label="Checkout">
+            android:label="Tramitar Pedido">
+        </activity>
+        <activity
+            android:name=".AddProductActivity"
+            android:label="Añadir Producto">
         </activity>
     </application>
 

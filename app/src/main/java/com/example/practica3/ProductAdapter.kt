@@ -33,11 +33,16 @@ class ProductAdapter(private val productList: List<Product>, private val context
 
         Glide.with(holder.itemView.context)
             .load(product.image)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
             .into(holder.imageViewProduct)
 
         holder.addToCartButton.setOnClickListener {
-            ShoppingCart.addItem(product)
-            Toast.makeText(context, "${product.title} added to cart", Toast.LENGTH_SHORT).show()
+            if (ShoppingCart.addItem(product)) {
+                Toast.makeText(context, "${product.title} añadido al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "${product.title} ya está en el carrito", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
