@@ -8,7 +8,7 @@ object ShoppingCart {
     }
 
     fun addItem(product: Product): Boolean {
-        if (cart.any { it.id == product.id }) {
+        if (cart.any { it.productoId == product.productoId }) {
             return false
         }
         cart.add(product)
@@ -16,7 +16,7 @@ object ShoppingCart {
     }
 
     fun getProductIds(): List<Int> {
-        return cart.mapNotNull { it.id }
+        return cart.mapNotNull { it.productoId }
     }
 
     fun removeItem(product: Product) {

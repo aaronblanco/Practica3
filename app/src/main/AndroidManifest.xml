@@ -43,6 +43,14 @@
             android:name=".AddProductActivity"
             android:label="Añadir Producto">
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="Iniciar Sesión">
+        </activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="Dónde estamos">
+        </activity>
     </application>
 
 

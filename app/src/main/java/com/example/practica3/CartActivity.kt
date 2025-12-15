@@ -20,7 +20,7 @@ class CartActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewCart)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        cartAdapter = CartAdapter(ShoppingCart.getCart(), this)
+        cartAdapter = CartAdapter(ShoppingCart.getCart().toMutableList(), this)
         recyclerView.adapter = cartAdapter
 
         val checkoutButton: Button = findViewById(R.id.buttonCheckout)

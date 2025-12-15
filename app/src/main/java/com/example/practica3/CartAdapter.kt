@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class CartAdapter(
-    private val cartItems: List<Product>,
+    private val cartItems: MutableList<Product>,
     private val context: Context
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
@@ -34,16 +34,22 @@ class CartAdapter(
         private val removeFromCartButton: Button = itemView.findViewById(R.id.buttonRemoveFromCart)
 
         fun bind(product: Product) {
-            productName.text = product.title
+            productName.text = product.productoNombre
             productPrice.text = "$${product.price}"
 
             Glide.with(context)
-                .load(product.image)
+                .load(product.imageUrl)
                 .into(productImage)
 
             removeFromCartButton.setOnClickListener {
-                ShoppingCart.removeItem(product)
-                notifyDataSetChanged() // This is not the most efficient way, but it's simple for this case.
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val productToRemove = cartItems[position]
+                    ShoppingCart.removeItem(productToRemove)
+                    cartItems.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, cartItems.size)
+                }
             }
         }
     }

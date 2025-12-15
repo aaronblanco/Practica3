@@ -27,7 +27,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         val summary = StringBuilder()
         cartItems.forEach {
-            summary.append("- ${it.title}: $${it.price}\n")
+            summary.append("- ${it.productoNombre}: $${it.price}\n")
         }
         summary.append("\nTotal: $$total")
 

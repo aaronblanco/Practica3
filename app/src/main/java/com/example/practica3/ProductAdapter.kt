@@ -28,20 +28,20 @@ class ProductAdapter(private val productList: List<Product>, private val context
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList[position]
-        holder.textViewName.text = product.title
+        holder.textViewName.text = product.productoNombre
         holder.textViewPrice.text = "$${product.price}"
 
         Glide.with(holder.itemView.context)
-            .load(product.image)
+            .load(product.imageUrl)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.ic_launcher_background)
             .into(holder.imageViewProduct)
 
         holder.addToCartButton.setOnClickListener {
             if (ShoppingCart.addItem(product)) {
-                Toast.makeText(context, "${product.title} añadido al carrito", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${product.productoNombre} añadido al carrito", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "${product.title} ya está en el carrito", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${product.productoNombre} ya está en el carrito", Toast.LENGTH_SHORT).show()
             }
         }
     }

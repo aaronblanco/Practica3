@@ -28,4 +28,12 @@ interface ApiService {
     // Checkout cart
     @POST("/cart/api/checkout")
     fun checkoutCart(): Call<Void>
+
+    // Login
+    @POST("/api/login")
+    fun login(@Body user: User): Call<LoginResponse>
+
+    // Logout
+    @POST("/api/logout")
+    fun logout(): Call<Void>
 }
