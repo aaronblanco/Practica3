@@ -26,11 +26,11 @@ class MapActivity : AppCompatActivity() {
 
         val mapController = mapView.controller
         mapController.setZoom(15.0)
-        val granadaPoint = GeoPoint(37.1773, -3.5986)
-        mapController.setCenter(granadaPoint)
+        val granada = GeoPoint(37.1773, -3.5986)
+        mapController.setCenter(granada)
 
         val startMarker = Marker(mapView)
-        startMarker.position = granadaPoint
+        startMarker.position = granada
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         mapView.overlays.add(startMarker)
     }

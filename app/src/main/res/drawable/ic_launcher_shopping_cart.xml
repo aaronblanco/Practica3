@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Mango del carrito -->
+    <path
+        android:fillColor="#FF6B35"
+        android:pathData="M20,20 L88,20 L88,28 L20,28 Z" />
+
+    <!-- Carrito principal -->
+    <path
+        android:fillColor="#FF8C42"
+        android:pathData="M24,28 L26,62 L82,62 L84,28 Z" />
+
+    <!-- Parte inferior del carrito -->
+    <path
+        android:fillColor="#FF6B35"
+        android:pathData="M26,62 L82,62 L82,68 L26,68 Z" />
+
+    <!-- Rueda izquierda -->
+    <path
+        android:fillColor="#1E3A8A"
+        android:pathData="M36,72 C32,72 28,76 28,80 C28,84 32,88 36,88 C40,88 44,84 44,80 C44,76 40,72 36,72 Z" />
+
+    <!-- Rueda derecha -->
+    <path
+        android:fillColor="#1E3A8A"
+        android:pathData="M72,72 C68,72 64,76 64,80 C64,84 68,88 72,88 C76,88 80,84 80,80 C80,76 76,72 72,72 Z" />
+
+    <!-- Centro de ruedas (gris más claro) -->
+    <path
+        android:fillColor="#E8E8E8"
+        android:pathData="M36,76 C33.8,76 32,77.8 32,80 C32,82.2 33.8,84 36,84 C38.2,84 40,82.2 40,80 C40,77.8 38.2,76 36,76 Z" />
+
+    <path
+        android:fillColor="#E8E8E8"
+        android:pathData="M72,76 C69.8,76 68,77.8 68,80 C68,82.2 69.8,84 72,84 C74.2,84 76,82.2 76,80 C76,77.8 74.2,76 72,76 Z" />
+</vector>
+

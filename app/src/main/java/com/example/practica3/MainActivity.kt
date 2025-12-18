@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productAdapter: ProductAdapter
     private lateinit var recyclerView: RecyclerView
     private val apiService = ApiClient.retrofit.create(ApiService::class.java)
-    private val purchasedProductIds = mutableSetOf<Int>()
 
     private lateinit var btnAddProduct: Button
     private lateinit var btnLoginLogout: Button
@@ -74,24 +73,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        handleIntent(intent)
         fetchProducts()
         updateUI()
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent != null) {
-            handleIntent(intent)
-        }
-        fetchProducts()
-    }
-
-    private fun handleIntent(intent: Intent) {
-        val purchasedIds = intent.getIntegerArrayListExtra("purchasedProductIds")
-        if (purchasedIds != null) {
-            purchasedProductIds.addAll(purchasedIds)
-        }
     }
 
     override fun onResume() {
@@ -116,8 +99,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val productList = response.body()
                     productList?.let {
-                        val filteredList = it.filter { product -> !purchasedProductIds.contains(product.productoId) }
-                        productAdapter = ProductAdapter(filteredList, this@MainActivity)
+                        productAdapter = ProductAdapter(it, this@MainActivity)
                         recyclerView.adapter = productAdapter
                     }
                 } else {
@@ -131,3 +113,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
+

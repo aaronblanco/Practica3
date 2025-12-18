@@ -44,10 +44,8 @@ class CheckoutActivity : AppCompatActivity() {
                                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                     if (response.isSuccessful) {
                                         Toast.makeText(this@CheckoutActivity, "¡Compra confirmada!", Toast.LENGTH_LONG).show()
-                                        val purchasedProductIds = ShoppingCart.getProductIds()
                                         ShoppingCart.clearCart()
                                         val intent = Intent(this@CheckoutActivity, MainActivity::class.java)
-                                        intent.putIntegerArrayListExtra("purchasedProductIds", ArrayList(purchasedProductIds))
                                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                                         startActivity(intent)
                                         finish()
