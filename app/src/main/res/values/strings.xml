@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Practica3</string>
+    <string name="header_title">Bienvenido a nuestra E-commerce</string>
+    <string name="header_subtitle">Descubre ofertas y añade al carrito</string>
+    <string name="action_login">Iniciar Sesión</string>
+    <string name="action_add_product">Añadir Producto</string>
+    <string name="action_go_to_cart">Ir al Carrito</string>
+    <string name="action_where_are_we">Dónde estamos</string>
 </resources>

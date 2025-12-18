@@ -2,10 +2,10 @@ package com.example.practica3
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,13 +18,13 @@ class AddProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
 
-        val editTextTitle: EditText = findViewById(R.id.editTextTitle)
-        val editTextPrice: EditText = findViewById(R.id.editTextPrice)
-        val buttonSubmit: Button = findViewById(R.id.buttonSubmit)
+        val editTextTitle: TextInputEditText = findViewById(R.id.editTextTitle)
+        val editTextPrice: TextInputEditText = findViewById(R.id.editTextPrice)
+        val buttonSubmit: MaterialButton = findViewById(R.id.buttonSubmit)
 
         buttonSubmit.setOnClickListener {
-            val title = editTextTitle.text.toString()
-            val priceString = editTextPrice.text.toString()
+            val title = editTextTitle.text?.toString().orEmpty()
+            val priceString = editTextPrice.text?.toString().orEmpty()
 
             if (title.isNotEmpty() && priceString.isNotEmpty()) {
                 val price = priceString.toDoubleOrNull() ?: 0.0

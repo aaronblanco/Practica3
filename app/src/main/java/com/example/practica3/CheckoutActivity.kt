@@ -3,10 +3,10 @@ package com.example.practica3
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +20,7 @@ class CheckoutActivity : AppCompatActivity() {
         setContentView(R.layout.activity_checkout)
 
         val textViewOrderSummary: TextView = findViewById(R.id.textViewOrderSummary)
-        val buttonConfirmPurchase: Button = findViewById(R.id.buttonConfirmPurchase)
+        val buttonConfirmPurchase: MaterialButton = findViewById(R.id.buttonConfirmPurchase)
 
         val cartItems = ShoppingCart.getCart()
         val total = cartItems.sumOf { it.price }

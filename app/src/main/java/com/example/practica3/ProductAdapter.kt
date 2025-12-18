@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,8 +23,8 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
         val imageViewProduct: ImageView = itemView.findViewById(R.id.imageViewProduct)
         val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         val textViewPrice: TextView = itemView.findViewById(R.id.textViewPrice)
-        val addToCartButton: Button = itemView.findViewById(R.id.buttonAddToCart)
-        val deleteButton: Button = itemView.findViewById(R.id.buttonDeleteProduct)
+        val addToCartButton: MaterialButton = itemView.findViewById(R.id.buttonAddToCart)
+        val deleteButton: MaterialButton = itemView.findViewById(R.id.buttonDeleteProduct)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {

@@ -2,10 +2,10 @@ package com.example.practica3
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,13 +19,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val editTextUsername: EditText = findViewById(R.id.editTextUsername)
-        val editTextPassword: EditText = findViewById(R.id.editTextPassword)
-        val buttonLogin: Button = findViewById(R.id.buttonLogin)
+        val editTextUsername: TextInputEditText = findViewById(R.id.editTextUsername)
+        val editTextPassword: TextInputEditText = findViewById(R.id.editTextPassword)
+        val buttonLogin: MaterialButton = findViewById(R.id.buttonLogin)
 
         buttonLogin.setOnClickListener {
-            val username = editTextUsername.text.toString()
-            val password = editTextPassword.text.toString()
+            val username = editTextUsername.text?.toString().orEmpty()
+            val password = editTextPassword.text?.toString().orEmpty()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 val user = User(username, password)

@@ -4,24 +4,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/headerCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            android:text="Bienvenido a nuestra E-commerce"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp">
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imageHeaderIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_launcher_shopping_cart"
+                android:tint="?attr/colorPrimary"
+                android:contentDescription="@string/app_name"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bienvenido a nuestra E-commerce"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"/>
+
+                <TextView
+                    android:id="@+id/textHeaderSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descubre ofertas y añade al carrito"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
@@ -47,31 +77,25 @@
             android:orientation="horizontal"
             android:layout_marginBottom="8dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
                 android:text="Iniciar Sesión"
-                android:textColor="@android:color/white"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonAddProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
                 android:text="Añadir Producto"
-                android:textColor="@android:color/white"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonGoToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
-                android:text="Ir al Carrito"
-                android:textColor="@android:color/white" />
+                android:text="Ir al Carrito" />
         </LinearLayout>
 
         <TextView
@@ -80,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Dónde estamos"
-            android:textColor="?android:attr/textColorLink" />
+            android:textColor="?attr/colorPrimary" />
 
     </LinearLayout>
 

@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private val apiService = ApiClient.retrofit.create(ApiService::class.java)
 
-    private lateinit var btnAddProduct: Button
-    private lateinit var btnLoginLogout: Button
+    private lateinit var btnAddProduct: MaterialButton
+    private lateinit var btnLoginLogout: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         btnAddProduct = findViewById(R.id.buttonAddProduct)
         btnLoginLogout = findViewById(R.id.buttonLoginLogout)
 
-        val btnGoToCart = findViewById<Button>(R.id.buttonGoToCart)
+        val btnGoToCart: MaterialButton = findViewById(R.id.buttonGoToCart)
         btnGoToCart.setOnClickListener {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
