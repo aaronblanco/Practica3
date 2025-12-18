@@ -91,6 +91,10 @@ class MainActivity : AppCompatActivity() {
             btnAddProduct.visibility = View.GONE
             btnLoginLogout.text = "Iniciar Sesión"
         }
+        // Refrescar la lista para que los items actualicen la visibilidad del botón Eliminar
+        if (::productAdapter.isInitialized) {
+            productAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun fetchProducts() {
@@ -99,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val productList = response.body()
                     productList?.let {
-                        productAdapter = ProductAdapter(it, this@MainActivity)
+                        productAdapter = ProductAdapter(it.toMutableList(), this@MainActivity)
                         recyclerView.adapter = productAdapter
                     }
                 } else {
@@ -113,4 +117,3 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
-

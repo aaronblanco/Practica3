@@ -5,7 +5,6 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ApiService {
     // Get all products
@@ -17,9 +16,8 @@ interface ApiService {
 
     // Eliminar un producto por su ID
     @DELETE("/api/products/{id}")
-    fun deleteProduct(
-        @Path("id") id: Int
-    ): Call<Void>
+    fun deleteProduct(@Path("id") id: Int): Call<Void>
+
 
     // Create a new order
     @POST("/api/orders")
