@@ -521,7 +521,7 @@ Este proyecto es parte de una práctica educativa.
 - [Documentación de Retrofit](https://square.github.io/retrofit/)
 - [Documentación de Gson](https://github.com/google/gson)
 - [Documentación de Android](https://developer.android.com/)
-- [OpenStreetMap / OSMDroid](https://osmdroid.github.io/)
+- [OpenStreetMap / OSMDroid]([https://osmdroid.github.io/](https://www.openstreetmap.org/))
 - [Glide Image Loader](https://bumptech.github.io/glide/)
 
 ---
