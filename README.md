@@ -526,6 +526,6 @@ Este proyecto es parte de una práctica educativa.
 
 ---
 
-**Última actualización:** 2024  
+**Última actualización:** 2025
 **Versión:** 1.0
 
