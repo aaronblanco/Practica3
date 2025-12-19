@@ -12,6 +12,7 @@ Una aplicación Android moderna para compra de productos con autenticación de u
 - [Endpoints API](#endpoints-api)
 - [Configuración](#configuración)
 - [Uso](#uso)
+- [Pruebas unitarias](#pruebas-unitarias)
 
 ---
 
@@ -185,6 +186,8 @@ La aplicación utiliza las siguientes dependencias principales:
 |----------|---------|----------|
 | **OSMDroid** | 6.1.18 | Mapas OpenStreetMap sin Google Maps |
 
+> Nota: No usamos Google Maps; la parte de mapas se resuelve con OSMDroid.
+
 ### Android Core
 | Librería | Versión | Propósito |
 |----------|---------|----------|
@@ -261,7 +264,7 @@ Elimina un producto específico.
 **Respuesta:** `Void`
 
 **Uso en la app:**
-- No se utiliza actualmente en la aplicación
+- Se ejecuta desde `ProductAdapter.deleteButton.setOnClickListener` cuando el usuario con sesión iniciada elimina un producto
 
 ---
 
@@ -490,23 +493,32 @@ Splash → MainActivity (sin login)
 
 ---
 
-## 👨‍💻 Desarrollo
+## 🆕 Notas recientes
+- Buscador en la lista principal de productos con filtrado por nombre y estado vacío visible.
+- Carrito con estado vacío y acumulación de unidades por cada toque en “Agregar al carrito”.
+- Checkout con resumen y total en tarjetas Material, formateado con moneda local.
+- Imágenes con placeholder `ic_product_placeholder` tanto en la lista principal como en el carrito.
+- Sesiones vía CookieJar en memoria (OkHttp) y utilidades `ApiSession.login` / `ApiSession.createProduct` para reutilizar cookies en llamadas autenticadas.
 
-### Compilación en Modo Release
-```bash
-./gradlew assembleRelease
-```
+---
 
-### Ejecutar Pruebas
+## 🧪 Pruebas unitarias
+
+Se han implementado dos pruebas unitarias simples para validar la lógica de visibilidad del botón de eliminación de productos, basada en el estado de sesión:
+
+- "muestra boton eliminar solo cuando hay sesion iniciada (admin)": Verifica que sin sesión no se puede eliminar y que tras iniciar sesión sí.
+- "al cerrar sesion se oculta boton eliminar": Verifica que tras cerrar sesión se oculta la opción de eliminar.
+
+Ubicación de los tests:
+- `app/src/test/java/com/example/practica3/SessionManagerTest.kt`
+
+Cómo ejecutarlas:
 ```bash
 ./gradlew test
 ```
 
-### Generar APK
-```bash
-./gradlew build
-# El APK estará en: app/build/outputs/apk/debug/app-debug.apk
-```
+Qué se prueba exactamente:
+- La función pura `SessionManager.canDeleteProducts()` que decide si mostrar el botón de eliminar en el `ProductAdapter`.
 
 ---
 

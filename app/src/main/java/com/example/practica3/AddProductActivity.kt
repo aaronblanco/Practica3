@@ -1,5 +1,6 @@
 package com.example.practica3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -23,6 +24,13 @@ class AddProductActivity : AppCompatActivity() {
         val buttonSubmit: MaterialButton = findViewById(R.id.buttonSubmit)
 
         buttonSubmit.setOnClickListener {
+            // Si no hay sesión, avisar y redirigir a Login
+            if (!SessionManager.isLoggedIn) {
+                Toast.makeText(this, "Debes iniciar sesión para añadir productos", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+                return@setOnClickListener
+            }
+
             val title = editTextTitle.text?.toString().orEmpty()
             val priceString = editTextPrice.text?.toString().orEmpty()
 

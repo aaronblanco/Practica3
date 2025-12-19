@@ -24,7 +24,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/ic_launcher_shopping_cart"
-                android:tint="?attr/colorPrimary"
+                app:tint="?attr/colorPrimary"
                 android:contentDescription="@string/app_name"
                 android:layout_marginEnd="12dp" />
 
@@ -53,11 +53,40 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Campo de búsqueda -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerCardView"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar productos por nombre"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Estado vacío -->
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/searchInputLayout"
+        android:layout_marginTop="24dp"
+        android:text="No hay productos disponibles"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerCardView"
+        android:layout_below="@id/emptyView"
         android:layout_above="@+id/bottomNavigationContainer"
         android:padding="16dp"
         android:scrollbars="vertical" />
@@ -70,31 +99,35 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <!-- Fila 1: Login/Logout a ancho completo -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonLoginLogout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:text="Iniciar Sesión"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Fila 2: dos botones al 50% -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="2"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonLoginLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Iniciar Sesión"
-                android:layout_marginEnd="8dp"/>
-
-            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonAddProduct"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Añadir Producto"
                 android:layout_marginEnd="8dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonGoToCart"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Ir al Carrito" />
         </LinearLayout>
 

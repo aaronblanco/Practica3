@@ -19,6 +19,9 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
 
     private val apiService = ApiClient.retrofit.create(ApiService::class.java)
 
+    // Lista filtrada que se muestra
+    private val items: MutableList<Product> = productList.toMutableList()
+
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageViewProduct: ImageView = itemView.findViewById(R.id.imageViewProduct)
         val textViewName: TextView = itemView.findViewById(R.id.textViewName)
@@ -33,14 +36,14 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = productList[position]
+        val product = items[position]
         holder.textViewName.text = product.productoNombre
         holder.textViewPrice.text = "${'$'}${product.price}"
 
         Glide.with(holder.itemView.context)
             .load(product.imageUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .error(R.drawable.ic_launcher_background)
+            .placeholder(R.drawable.ic_product_placeholder)
+            .error(R.drawable.ic_product_placeholder)
             .into(holder.imageViewProduct)
 
         holder.addToCartButton.setOnClickListener {
@@ -51,8 +54,8 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
             }
         }
 
-        // Mostrar botón eliminar si hay sesión iniciada (modo admin)
-        holder.deleteButton.visibility = if (SessionManager.isLoggedIn) View.VISIBLE else View.GONE
+        // Mostrar botón eliminar si se permite eliminar (sesión iniciada)
+        holder.deleteButton.visibility = if (SessionManager.canDeleteProducts()) View.VISIBLE else View.GONE
         holder.deleteButton.setOnClickListener {
             val id = product.productoId
             if (id == null) {
@@ -62,11 +65,16 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
             apiService.deleteProduct(id).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
-                        val pos = holder.adapterPosition
+                        val pos = holder.bindingAdapterPosition
                         if (pos != RecyclerView.NO_POSITION) {
-                            productList.removeAt(pos)
+                            // remover de ambas listas
+                            val removed = items.removeAt(pos)
+                            val originalIndex = productList.indexOfFirst { it.productoId == removed.productoId }
+                            if (originalIndex >= 0) {
+                                productList.removeAt(originalIndex)
+                            }
                             notifyItemRemoved(pos)
-                            notifyItemRangeChanged(pos, productList.size - pos)
+                            notifyItemRangeChanged(pos, items.size - pos)
                         }
                         Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show()
                     } else {
@@ -80,5 +88,17 @@ class ProductAdapter(private val productList: MutableList<Product>, private val 
         }
     }
 
-    override fun getItemCount(): Int = productList.size
+    override fun getItemCount(): Int = items.size
+
+    // Filtrado por nombre
+    fun filterByName(query: String) {
+        val trimmed = query.trim().lowercase()
+        items.clear()
+        if (trimmed.isEmpty()) {
+            items.addAll(productList)
+        } else {
+            items.addAll(productList.filter { it.productoNombre?.lowercase()?.contains(trimmed) == true })
+        }
+        notifyDataSetChanged()
+    }
 }

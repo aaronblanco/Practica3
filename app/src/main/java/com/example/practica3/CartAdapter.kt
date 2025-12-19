@@ -35,20 +35,23 @@ class CartAdapter(
 
         fun bind(product: Product) {
             productName.text = product.productoNombre
-            productPrice.text = "$${product.price}"
+            productPrice.text = "${'$'}${product.price}"
 
             Glide.with(context)
                 .load(product.imageUrl)
+                .placeholder(R.drawable.ic_product_placeholder)
+                .error(R.drawable.ic_product_placeholder)
+                .centerCrop()
                 .into(productImage)
 
             removeFromCartButton.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val productToRemove = cartItems[position]
+                val pos = bindingAdapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
+                    val productToRemove = cartItems[pos]
                     ShoppingCart.removeItem(productToRemove)
-                    cartItems.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(position, cartItems.size)
+                    cartItems.removeAt(pos)
+                    notifyItemRemoved(pos)
+                    notifyItemRangeChanged(pos, cartItems.size - pos)
                 }
             }
         }

@@ -2,6 +2,8 @@ package com.example.practica3
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btnAddProduct: MaterialButton
     private lateinit var btnLoginLogout: MaterialButton
+    private lateinit var editTextSearch: TextInputEditText
+    private lateinit var emptyView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         btnAddProduct = findViewById(R.id.buttonAddProduct)
         btnLoginLogout = findViewById(R.id.buttonLoginLogout)
+        editTextSearch = findViewById(R.id.editTextSearch)
+        emptyView = findViewById(R.id.emptyView)
 
         val btnGoToCart: MaterialButton = findViewById(R.id.buttonGoToCart)
         btnGoToCart.setOnClickListener {
@@ -73,6 +80,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Listener de búsqueda
+        editTextSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s?.toString()?.trim() ?: ""
+                if (::productAdapter.isInitialized) {
+                    productAdapter.filterByName(query)
+                    updateEmptyState()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         fetchProducts()
         updateUI()
     }
@@ -94,7 +114,16 @@ class MainActivity : AppCompatActivity() {
         // Refrescar la lista para que los items actualicen la visibilidad del botón Eliminar
         if (::productAdapter.isInitialized) {
             productAdapter.notifyDataSetChanged()
+            updateEmptyState()
+        } else {
+            emptyView.visibility = View.VISIBLE
         }
+    }
+
+    private fun updateEmptyState() {
+        val isEmpty = (productAdapter.itemCount == 0)
+        emptyView.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
     private fun fetchProducts() {
@@ -105,6 +134,16 @@ class MainActivity : AppCompatActivity() {
                     productList?.let {
                         productAdapter = ProductAdapter(it.toMutableList(), this@MainActivity)
                         recyclerView.adapter = productAdapter
+                        // Aplicar filtro actual si hay texto
+                        val currentQuery = editTextSearch.text?.toString()?.trim().orEmpty()
+                        productAdapter.filterByName(currentQuery)
+                        updateEmptyState()
+                    } ?: run {
+                        // Lista nula: estado vacío
+                        if (::productAdapter.isInitialized.not()) {
+                            emptyView.visibility = View.VISIBLE
+                            recyclerView.visibility = View.GONE
+                        }
                     }
                 } else {
                     Log.e("API_ERROR", "Error code: ${response.code()}")

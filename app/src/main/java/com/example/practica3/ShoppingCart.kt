@@ -8,9 +8,7 @@ object ShoppingCart {
     }
 
     fun addItem(product: Product): Boolean {
-        if (cart.any { it.productoId == product.productoId }) {
-            return false
-        }
+        // Antes se evitaba duplicar por productoId; ahora acumulamos unidades
         cart.add(product)
         return true
     }
